@@ -15,4 +15,4 @@ The script is configured to run on the IP 192.168.1.1 - if your router is on ano
 Open the JavaScript section in Web Override and fill in the list of MAC addresses at the top.
 
    [Web Override]: https://chrome.google.com/webstore/detail/web-override/lllllobkincmdnjfkbknjacacmnlajll
-   [import]: https://raw.githubusercontent.com/udondan/asus_router_named_devicesk/master/web_orverride_import.json
+   [import]: https://raw.githubusercontent.com/udondan/asus_router_named_devices/master/web_orverride_import.json
