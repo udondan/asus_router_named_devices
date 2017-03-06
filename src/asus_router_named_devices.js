@@ -1,4 +1,4 @@
-//Add here all your know MAC addresses
+//Add here all your known MAC addresses
 var macMap = {
     "XX:XX:XX:XX:XX:XX": "TV",
     "YY:YY:YY:YY:YY:YY": "PS4",
