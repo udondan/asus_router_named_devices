@@ -1,0 +1,14 @@
+{
+  "2aabaca0-b2c7-a209-bbed-a453da3eeb7b": {
+    "active": true,
+    "createdAt": 1488794989070,
+    "cssContent": "",
+    "htmlContent": "",
+    "jsContent": "//Add here all your know MAC addresses\nvar macMap = {\n    \"XX:XX:XX:XX:XX:XX\": \"TV\",\n    \"YY:YY:YY:YY:YY:YY\": \"PS4\",\n    \"ZZ:ZZ:ZZ:ZZ:ZZ:ZZ\": \"LG TV\",\n};\n\n\nwindow.setInterval(function() {\n    // Inject jQuery if this page has it not by default\n    if(typeof jQuery === \"undefined\") {\n        console.log(\"jQuery not ready. Skipping...\");\n        var jq = document.createElement(\"script\");\n        jq.setAttribute(\"src\", \"/jquery.js\");\n        jq.addEventListener(\"load\", function() {\n            $.noConflict();\n        });\n        document.head.appendChild(jq);\n        return\n    }\n    \n    // Modify list on Advanced DHCP page\n    if(jQuery(\"table#static_list\").length) {\n        table = jQuery(\"table#static_list\");\n        table.find(\"td\").each(function(i, obj) {\n            var mac = jQuery(obj).text();\n            var name = macMap[mac];\n            if(typeof name != \"undefined\") {\n                jQuery(obj).text(mac + \" ( \" + name + \" )\");    \n            }\n        });\n    }\n\n    // Modify list in Overview->Clients (sidebar, iframe)\n    if(jQuery(\"#statusframe\").length) {\n        var statusFrame = jQuery(\"#statusframe\")[0].contentWindow;\n        wrapClientList(statusFrame)\n    } else {\n        // Modify drop downs on serveral pages\n        wrapClientList(window)\n        if(typeof window.showWLMACList !== \"undefined\") {\n            window.showWLMACList()\n        } else if (typeof window.showLANIPList !== \"undefined\") {\n            window.genClientList()\n            window.showLANIPList()\n        }\n    }\n}, 1000);\n\nvar wrapClientList = function(target) {\n    if(typeof target.genClientList != \"undefined\" &&\n       typeof target._genClientList == \"undefined\") {\n        target._genClientList = target.genClientList;\n        target.genClientList = function() {\n            try {\n                target._genClientList();\n                jQuery.each(macMap, function(mac, name) {\n                    if(typeof target.clientList[mac] != \"undefined\") {\n                        if(name === \"\") {\n                            name = target.clientList[mac].Name + \" ???\";\n                        }\n                        target.clientList[mac].Name = name;\n                    }\n                });\n            }\n            catch(err) {\n                console.log(err.message);\n            }\n        };\n        console.log(\"Injected!\");\n    }\n}\n",
+    "title": "ASUS Router",
+    "updatedAt": 1488835669040,
+    "urlQueries": [
+      "192.168.1.1"
+    ]
+  }
+}
